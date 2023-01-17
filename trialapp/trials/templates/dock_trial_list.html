@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+<h2>Dock Trails Status</h2>
+
+	<table class="table table-striped">
+		<style>th { text-align: center;}</style>
+ 	<thead>
+	
+      
+      
+        <th class="text-success" style="width: 25%" >Accepted {{ accepted }}/{{ all_dock_trial }}</th>
+        <th class="text-warning">Accepted with Comments {{accepted_with_comments}}/{{ all_dock_trial }} </th>
+        <th class="text-danger" style="width: 25%">Not accepted {{not_accepted}}/{{ all_dock_trial }} </th>
+	<th class="text-dark" style="width: 25%">Not Started {{not_started}}/{{ all_dock_trial }}</th>
+
+	
+	</thead>
+	</table>
+
+
+
+
+
+{% if user.is_authenticated %}
+<div class="col-md-6">
+<h2>Dock Trails List</h2>
+	<a class="btn btn-primary" href="{% url 'trial-create' %}">Add Dock Trial</a>
+	<a class="pull-right"><a class="btn btn-success" href={% url 'export-trial' %}>Export to csv</a>
+{% endif %}
+    <p></p>
+    </div>
+	
+ 
+<div class="container">
+        
+  <table class="table table-bordered">
+  
+  
+    <thead>
+    
+      <tr>
+      
+       
+        <th>Trial ID</th>
+        <th>Trial name</th>
+        <th>Status</th>
+        
+        
+      </tr>
+      {% for trial in trials %} 
+    <tbody>
+    
+      <tr>
+        <th style="width: 6%"><a href="{% url 'dock-trial-detail' trial.id %}">{{ trial.trial_number}}</a></th>
+        <th><a href="{% url 'dock-trial-detail' trial.id %}">{{ trial.trial_name }}</a></th>
+        <th style="width: 18%">{{ trial.get_trial_status_display }}</th>
+        
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+  <div class="container">
+  <div class="row">
+    
+    </div>
+</div>
+
+{# paginacja #}
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+        {% endif %}
+
+        {% for i in paginator.page_range %} 
+		{% if page_obj.number == i %}
+        	<li class="page-item"><a class="page-link active">{{ i }}</a></li>
+		{% else %}
+     		<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        	{% endif %} 
+	{% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+        {% endif %}
+</ul>
+</nav>
+    
+
+
+
+
+{% endblock %}

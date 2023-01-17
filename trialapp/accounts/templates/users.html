@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block uwagi %} {% endblock %}
+
+
+
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-6">
+<h2>Users List</h2>
+
+</div>
+
+<div class="container">
+
+        
+  <table class="table table-bordered">
+   
+  
+    <thead>
+    
+      <tr>
+	<th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+	<th>Last Name</th>
+	
+	<th>Contact number</th>
+	
+	<th>Title</th>
+        <th>Is Active</th>
+	<th>Update Contact</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>Reset password</th>
+        
+      </tr>
+{% if user.is_authenticated %}
+      {% for profile in profile_list %} 
+    <tbody>
+    
+      <tr>
+
+     
+        <th>{{ profile.id }}</th>
+	<th><a href="{% url 'user-detail' profile.id %}">{{ profile.user.username }}</th>
+	<th>{{ profile.user.first_name }} </th>
+        <th>{{ profile.user.last_name }}</th>
+        
+        <th>{{ profile.contact_number }}</th>
+        
+        <th>{{ profile.title }}</th>
+	<th>{{ profile.user.is_active }}</th>
+	<th><a class="btn btn-warning" href="{% url 'contact' profile.pk %}">Update Contact</a></th>
+	<th><a class="btn btn-warning" href="{% url 'change-profile' profile.pk %}">Update User</a></th>
+	<th><a class="btn btn-danger" href="{% url 'delete-profile' profile.pk %}" >Delete User</a></th>
+	<th><a class="btn btn-primary" href="#">Reset Password</a></th>
+{% endfor %}
+{% else %}
+
+	<p style="color:red">Please login to see users</p>
+{% endif %}        
+
+	
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+    
+
+
+</ul>
+{% endblock %}

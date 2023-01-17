@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<ul>
+
+<div class="container">
+ 
+  <h2>Dock Trail Detail</h2> 
+
+  <table class="table table-bordered">
+  
+  
+    <thead>
+    
+      <tr>
+      
+        
+        <th style="width: 6%">Trial ID</th>
+        <th>Trial name</th>
+        <th style="width: 12%">Status</th>
+        
+        
+      </tr>
+      
+    <tbody>
+    
+      <tr>
+    
+        <th>{{ object.trial_number}}</th>
+        <th>{{ object.trial_name }}</th>
+        <th>{{ object.get_trial_status_display }}</th>      
+        
+      </tr>
+      
+
+    </tbody>
+
+  </table>
+
+<h3>Specification:</h3>
+<div class="well">
+
+<p>{{ object.specification}}</p>
+</div>
+
+<h3>Dock Trail Comments for {{ object.trial_name }}</h3>
+  <div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+{% if user.is_authenticated %}
+    <a class="btn btn-warning" href={% url 'trial-update' object.pk %}>Update Trial</a>
+
+    <a class="btn btn-primary" href="{% url 'dock-comment-create' %}"> Add Dock Trail Comment </a>
+
+    
+    </div><div class="col-md-6"><span class="pull-right"><a class="btn btn-danger" href={% url 'trial-delete' object.pk %}>Delete Trial</a><p></p></span>
+{% endif %}
+<p><p/>
+</div>       
+  <table class="table table-bordered">
+  <p><p/>
+  
+    <thead>
+    
+      <tr>
+      
+        <th style="width: 3%">Id</th>
+        <th style="width: 6%">Trial ID</th>
+        <th>Trial name</th>
+        
+        <th>Comment name</th>
+	<th style="width: 12%">Pub Date</th>
+        <th style="width: 6%">Status</th>
+        
+      </tr>
+      {% for com in comments %} 
+    <tbody>
+    
+      <tr>
+    
+        <th><a href="{% url 'docktrialcomments-detail' com.id %}">{{ com.id }}</a></th>
+        <th>{{ com.name_dock_trial.trial_number }}</th>
+        <th>{{ com.name_dock_trial }}</th>
+        
+        <th><a href="{% url 'docktrialcomments-detail' com.id %}">{{ com.name }}</th>
+	<th>{{ com.pub_date|date:'Y-m-d H:i'  }}</th>
+        <th>{{ com.get_status_display }}</th>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</ul>
+{% endblock %}
+    
+    
+    
+    

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+<h2>Dock Trails Status</h2>
+
+
+
+
+
+<form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row">
+        
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Trial number</p>
+         {{ filter.form.trial_number }}
+	
+        
+        </div>
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Trial name</p>
+          {{ filter.form.trial_name }}
+	
+        
+        </div>
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Status</p>
+          {{ filter.form.trial_status }}
+	
+        
+        </div>
+</div>
+<button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+</div>
+
+ </form>
+
+
+{% if user.is_authenticated %}
+<div class="col-md-6">
+<h2>Dock Trails List</h2>
+    <a class="btn btn-primary" href="{% url 'trial-create' %}">Add Dock Trial</a>
+	
+{% endif %}
+    <p></p>
+    </div>
+	
+<div class="container">
+        
+  <table class="table table-bordered">
+  
+  
+    <thead>
+    
+      <tr>
+      
+	<th style="width: 3%">#</th>
+        <th>Trial ID</th>
+        <th>Trial name</th>
+        <th>Status</th>
+        
+        
+      </tr>
+
+	{% for trial in filter.qs %}
+	
+		
+    <tbody>
+    
+      <tr>
+	<th>{{ forloop.counter}}</th>
+        <th style="width: 6%"><a href="{% url 'dock-trial-detail' trial.id %}">{{ trial.trial_number}}</a></th>
+        <th><a href="{% url 'dock-trial-detail' trial.id %}">{{ trial.trial_name }}</a></th>
+        <th style="width: 18%">{{ trial.get_trial_status_display }}</th>
+        	
+	{% endfor %}
+      </tr>
+    </tbody>
+  </table>
+  <div class="container">
+  <div class="row">
+    
+    </div>
+</div>
+
+
+
+</ul>
+{% endblock %}

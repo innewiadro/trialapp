@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block uwagi %} {% endblock %}
+
+{% if user.is_authenticated %}
+
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-6">
+
+<h1><b>User Detail</b></h1>
+<hr />
+<h3>User -  <b>{{ profile.user.username }}</b></h3>
+
+<p>First Name - {{profile.user.first_name}}</p>
+<p>Last Name - {{profile.user.last_name}}</p>
+<p>Email - {{profile.user.email}}</p>
+<p>Email - {{profile.contact_number}}</p>
+<p>Title - {{profile.title}}</p>
+</div>
+
+	{% else %}
+	<p style="color:red">Please login to see users</p>
+	{% endif %}
+
+    
+
+
+</ul>
+{% endblock %}

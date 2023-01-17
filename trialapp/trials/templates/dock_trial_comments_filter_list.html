@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block uwagi %} {% endblock %}
+<style>th { text-align: center;}</style>
+<ul>
+<div class="container">
+<h2>Dock Trails Comments</h2>
+<form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row" >
+	
+        
+	
+	
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Name</p>
+          {{ filter.form.name }}
+	
+        
+        </div>
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Description</p>
+          	{{ filter.form.description }}
+	</div>
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Pub date</p> 
+          {{ filter.form.pub_date }}
+	
+        
+        </div>
+	<div class="form-group col-sm-4 col-md-3"><p class="lead">Last change</p>
+          {{ filter.form.date_of_last_change }}
+	
+        
+        </div>
+	
+	
+	
+</div>	
+<div class="row">
+
+<div class="form-group col-sm-4 col-md-3"><p class="lead">Trial name</p>
+          {{ filter.form.name_dock_trial }}
+	</div>
+<div class="form-group col-sm-4 col-md-3"><p class="lead">Department</p>
+ 		{{ filter.form.department }}
+	
+        
+        </div>
+<div class="form-group col-sm-4 col-md-3"><p class="lead">Status</p>
+          {{ filter.form.status }}
+	
+        
+        </div>	
+</div>
+
+<button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+</div>
+
+ </form>
+<table class="table table-bordered" style="width:100%">
+
+
+    <thead>
+    
+        <tr>
+      	     
+		<th><p class="text-center" >HPD</a></th><th><p class="text-bottom">Hull Production Department</p></th>
+		<th><p class="text-center" >PD</p></th><th><p class="text-center">Piping Department</p></th>
+		<th><p class="text-center" >OD</p></th><th><p class="text-center">Outfitting Department</p></th>
+		<th><p class="text-center" >ED</p></th><th><p class="text-center">Electric Deepartment</p></th>
+		<th><p class="text-center" >CD</p></th><th><p class="text-center">Commissioning Department</p></th>
+	</tr>
+		<th><p class="text-center" >QC</p></th><th><p class="text-center">Quality Control Department</p></th>
+		<th><p class="text-center" >P&L</p></th><th><p class="text-center">Purchasing and Logistics Deparment</p></th>
+		<th><p class="text-center" >PD</p></th><th><p class="text-center">Painting Department</p></th>
+		<th><p class="text-center" >DO</p></th><th><p class="text-center">Design Office</p></th>
+		<th><p class="text-center" >S</p></th><th><p class="text-center">Service</p></th>
+		<th><p class="text-center" >CO</p></th><th><p class="text-center">Construction Office</p></th>
+	
+	</table>
+
+<h2>Dock Trails Comments</h2>
+{% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'dock-comment-create' %}"> Add Dock Trail Comment </a>
+{% endif %}
+
+<p></p>
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-8">
+
+</div>
+
+
+<div class="container">
+ 
+        
+  <table class="table table-bordered">
+  
+  
+    <thead>
+    
+      <tr>
+	<th style="width: 3%">#</th>
+        <th style="width: 3%">Id</th>
+        <th style="width: 6%">Trial ID</th>
+        <th>Trial name</th>
+        
+        <th >Name</th>
+        <th style="width: 3%">Dept.</th>
+	<th style="width: 3%">Status</th>
+	<th style="width: 13%">Pub Date</th> 
+	<th style="width: 3%">Editor</th>
+	<th style="width: 13%">Update Date</th>        
+      </tr>
+      {% for trial in filter.qs %} 
+    <tbody>
+    
+      <tr>
+	<th>{{forloop.counter}}</th>  
+        <th><a href="{% url 'docktrialcomments-detail' trial.id %}">{{ trial.id }}</a></th>
+        <th>{{ trial.name_dock_trial.trial_number }}</th>
+        <th>{{ trial.name_dock_trial }}</a></th>
+        
+        <th><a href="{% url 'docktrialcomments-detail' trial.id %}">{{ trial.name }}</a></th>
+        <th>{{ trial.get_department_display }}</th>
+	<th>{{ trial.get_status_display }}</th>
+	<th>{{ trial.pub_date|date:'Y-m-d H:i' }}</th>
+	<th>{{ trial.editor_profile_sign }}</th>
+	<th>{{ trial.date_of_last_change|date:'Y-m-d H:i' }}</th>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+    
+
+
+</ul>
+
+
+{% endblock %}

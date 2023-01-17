@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+removing
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+
+    {% csrf_token %}
+    <div class="form-group">
+	{% if user.is_authenticated %}
+    <label class="control-label col-sm-2">
+    <p>Are you sure to delete this trial from  list <strong>{{ object.trial_number }} - {{ object.trial_name }}</strong> </p>
+    <input type="submit" value="Delete" class="btn btn-danger">
+    
+	{% else %}
+	<p style="color:red">Please login to delete</p>
+	{% endif %}
+</div>
+</form>
+	
+
+{% endblock %}

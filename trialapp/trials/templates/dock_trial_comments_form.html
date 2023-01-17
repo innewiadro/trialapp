@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+{% load widget_tweaks %}
+{% if user.is_authenticated %}
+<div class="container">
+
+<h1>New Comments...</h1>
+<br></br>
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+	<div class="form-group">
+		{{ form.name_dock_trial.errors }}
+		<label class="control-label col-sm-2" for="{{ form.name_dock_trial.id_for_label }}">Dock Trial Name</label>
+		{% render_field form.name_dock_trial class="form-control" %}
+    	</div>
+
+    	<div class="form-group">
+		{{ form.name.errors }}
+		<label class="control-label col-md-2" row="3" for="{{ form.name.id_for_label }}">Name</label>
+		{% render_field form.name class="form-control" %}
+	</div> 
+		
+
+	<div class="form-group">
+		{{ form.department.errors }}
+		<label class="control-label col-sm-2" for="{{ form.department.id_for_label }}">Department</label>
+		{% render_field form.department class="form-control" %}
+    	</div>
+	<div class="form-group">
+		{{ form.description.errors }}
+		<label class="control-label col-sm-2" for="{{ form.description.id_for_label }}">Description</label>
+		{% render_field form.description class="form-control"  rows="4" %}
+    	</div>
+	<div class="form-group">
+		{{ form.status.errors }}
+		<label class="control-label col-sm-2" for="{{ form.status.id_for_label }}">Status</label>
+		{% render_field form.status class="form-control" %}
+	
+ 
+    	</div>
+	<div class="form-group">
+		{{ form.editor_profile_sign.errors }}
+		<label class="control-label col-sm-2" for="{{ form.editor_profile_sign.id_for_label }}">
+</label>
+		{{ form.editor_profile_sign }}
+
+	
+ 
+    	</div>
+	<script>
+		var name = "{{ user.username }}";
+		document.getElementById("user-ac").value
+			= name;
+	
+	</script>
+	
+	
+
+    	<div class="form-group">
+		<label class="control-label col-sm-2">
+			<input type="submit" value="Add" class="btn btn-primary"></div>
+		</label>
+</form>
+{%endif%}
+
+    
+{% endblock %}
+

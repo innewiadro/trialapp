@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block uwagi_detail %} {% endblock %}
+
+
+<div class="container">
+<h2>Dock Trial Coments Detail</h2>
+<h3>Comment Title - {{ object.name }}</h3>
+
+
+
+<div class="container">
+ 
+       <div class="row">
+  	<div class="col-sm-2"><strong>Category</strong>
+
+	<p>Comment Id</p>
+        <p>Trial ID</p>
+        <p>Trial name</p>
+	<p>Department</p>
+        <p>Public Date</p>
+        <p>Last change date</p>
+        <p>Status</p>
+</div>
+
+<div class="col-sm-8"><strong>Data</strong>
+ 	<p>{{ object.id }}</p>
+        <p>{{ object.name_dock_trial.trial_number }}</p>
+        <p>{{ object.name_dock_trial }}</p>
+	<p>{{ object.department }}</p>
+        <p>{{ object.pub_date }} </p>
+        <p>{{ object.date_of_last_change}} </p> 
+        <p>{{ object.get_status_display }}</p></div>
+	</div>   
+
+</div>
+
+<hr />
+<h3>Description:</h3>
+<div class="well">
+<p>{{ object.description}}</p>
+</div>
+<h3>Shipowner Comment:</h3>
+<div class="well">
+<p>{{ object.shipowner_comment}}</p>
+</div>
+<h3>Design Comment:</h3>
+<div class="well">
+<p>{{ object.design_comment}}</p>
+</div>
+<h3>Contractor Comment:</h3>
+<div class="well">
+<p>{{ object.contractor_comment}}</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+{% if user.is_authenticated %}
+    <a class="btn btn-warning" href="{% url 'dock-comment-update' object.pk %}">Update comment</a>
+    
+    </div>
+<div class="col-md-6"><span class="pull-right"><a class="btn btn-danger" href="{% url 'dock-comment-delete' object.pk %}" >Delete comment</a></span></div>
+  </div>
+{% endif %}
+
+
+
+</body>
+
+</html>    
+
+
+{% endblock %}
+

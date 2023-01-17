@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+removing
+{% endblock %}
+
+{% block content %}
+<form method="post">
+
+{% if user.is_authenticated %}
+    {% csrf_token %}
+    <div class="form-group">
+    <label class="control-label col-sm-2">
+    <p>Are you sureto delete this comment <strong>{{ object.notes }}</strong> from  trial nr. <strong>{{ object.name_dock_trial.trial_number }} - {{ object.name_dock_trial }}</strong> </p>
+    <input type="submit" value="Delete" class="btn btn-danger">
+    </div>
+</form>
+{% endif %}
+{% endblock %}
